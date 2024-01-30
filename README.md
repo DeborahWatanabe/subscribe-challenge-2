@@ -10,7 +10,6 @@ Instructions: [challenge.md](https://github.com/DeborahWatanabe/subscribe-challe
 
 Go to `lib` folder, then run it:
 ```
-cd lib
 ruby receipt_calculator.rb
 ```
 

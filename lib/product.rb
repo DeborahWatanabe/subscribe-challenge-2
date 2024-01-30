@@ -11,7 +11,7 @@ class Product
     @single_price = single_price
   end
 
-  attr_accessor :name, :amount
+  attr_reader :name, :amount
 
   def total_price
     @total_price ||= @single_price * @amount + total_tax
