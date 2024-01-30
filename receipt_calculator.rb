@@ -4,21 +4,27 @@ class ReceiptCalculator
   def call
     puts 'Welcome to the receipt calculator!'
     puts 'Please, input the products in the format "<amount> <product name> at <price>".'
+    puts 'Input one product per row or enter a blank row to finish.'
 
+    @errors = ''
     @products = get_product_input
-    
+
+    puts @errors
+    puts 'Your receipt:'
     puts output_message
   end
 
   private
 
   def get_product_input
-    puts 'Input a new product or press enter to finish.'
     input = gets.chomp
     product_data = /(?<amount>\d+)\s(?<name>([a-zA-Z]+\s*)+)\sat\s(?<price>(\d+\.\d{2}))/.match(input)
   
-    if product_data.nil?
+    if input.empty?
       []
+    elsif product_data.nil?
+      @errors << "Item: '#{input}' could not be processed\n"
+      [] + get_product_input
     else
       [
         Product.new(
