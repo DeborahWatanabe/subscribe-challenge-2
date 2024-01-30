@@ -40,6 +40,6 @@ class Product
     last_digit = format('%.2f', two_digit_tax)[-1].to_i
     remainder = last_digit % 5
 
-    remainder.zero? ? two_digit_tax : two_digit_tax - (remainder * 0.01) + 0.05
+    (remainder.zero? ? two_digit_tax : two_digit_tax - (remainder * 0.01) + IMPORT_DUTY).round(2)
   end
 end
