@@ -1,17 +1,22 @@
 require './product.rb'
+require './receipt.rb'
 
 class ReceiptCalculator
+  def initialize
+    @errors = ''
+  end
+
   def call
     puts 'Welcome to the receipt calculator!'
     puts 'Please, input the products in the format "<amount> <product name> at <price>".'
     puts 'Input one product per row or enter a blank row to finish.'
 
-    @errors = ''
-    @products = get_product_input
+    products = get_product_input
+    receipt = Receipt.new(products:)
 
     puts @errors
     puts 'Your receipt:'
-    puts output_message
+    puts receipt.message
   end
 
   private
@@ -34,21 +39,6 @@ class ReceiptCalculator
         )
       ] + get_product_input
     end
-  end
-
-  def output_message
-    message = ''
-    total_taxes = 0.0
-    total = 0.0
-
-    @products.each do |product|
-      message << "#{product.amount} #{product.name}: #{format('%.2f', product.total_price)}\n"
-      total_taxes += product.total_tax
-      total += product.total_price
-    end
-
-    message << "Sales Taxes: #{format('%.2f', total_taxes)}\n"
-    message << "Total: #{format('%.2f', total)}"
   end
 end
 
